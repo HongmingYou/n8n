@@ -22,9 +22,9 @@
   ],
   "devDependencies": {
     "@n8n/typescript-config": "workspace:*",
-    "@sentry/node": "catalog:sentry"
+    "@sentry/node": "^10.36.0"
   },
   "dependencies": {
-    "callsites": "catalog:"
+    "callsites": "3.1.0"
   }
 }

@@ -8,9 +8,9 @@
     "scanner"
   ],
   "dependencies": {
-    "eslint": "catalog:",
-    "fast-glob": "catalog:",
-    "axios": "catalog:",
+    "eslint": "9.29.0",
+    "fast-glob": "3.2.12",
+    "axios": "1.12.0",
     "@n8n/eslint-plugin-community-nodes": "workspace:*",
     "semver": "^7.5.4",
     "tmp": "0.2.4"

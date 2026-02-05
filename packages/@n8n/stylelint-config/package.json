@@ -34,8 +34,8 @@
   },
   "devDependencies": {
     "@n8n/typescript-config": "workspace:*",
-    "typescript": "catalog:",
-    "rimraf": "catalog:"
+    "typescript": "5.9.2",
+    "rimraf": "6.0.1"
   },
   "peerDependencies": {
     "stylelint": ">= 16"

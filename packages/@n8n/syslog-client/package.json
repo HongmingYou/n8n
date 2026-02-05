@@ -22,7 +22,7 @@
     "dist/**/*"
   ],
   "dependencies": {
-    "zod": "catalog:"
+    "zod": "3.25.67"
   },
   "devDependencies": {
     "@n8n/typescript-config": "workspace:*",
