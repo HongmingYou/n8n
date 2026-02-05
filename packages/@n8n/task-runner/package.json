@@ -39,18 +39,18 @@
     "@n8n/config": "workspace:*",
     "@n8n/di": "workspace:*",
     "@n8n/errors": "workspace:*",
-    "@sentry/node": "catalog:sentry",
+    "@sentry/node": "^10.36.0",
     "acorn": "8.14.0",
     "acorn-walk": "8.3.4",
-    "lodash": "catalog:",
-    "luxon": "catalog:",
+    "lodash": "4.17.23",
+    "luxon": "3.7.2",
     "n8n-core": "workspace:*",
     "n8n-workflow": "workspace:*",
-    "nanoid": "catalog:",
+    "nanoid": "3.3.8",
     "ws": "^8.18.0"
   },
   "devDependencies": {
     "@n8n/typescript-config": "workspace:*",
-    "@types/lodash": "catalog:"
+    "@types/lodash": "4.17.17"
   }
 }

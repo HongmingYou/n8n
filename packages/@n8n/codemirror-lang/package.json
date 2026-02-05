@@ -39,12 +39,12 @@
     "format:check": "biome ci src test"
   },
   "peerDependencies": {
-    "@codemirror/language": "catalog:",
-    "@lezer/highlight": "catalog:",
-    "@lezer/lr": "catalog:"
+    "@codemirror/language": "6.12.1",
+    "@lezer/highlight": "1.2.3",
+    "@lezer/lr": "1.4.5"
   },
   "devDependencies": {
-    "@lezer/generator": "catalog:",
+    "@lezer/generator": "1.8.0",
     "@n8n/typescript-config": "workspace:*"
   }
 }

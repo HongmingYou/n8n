@@ -30,25 +30,25 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@currents/playwright": "catalog:e2e",
+    "@currents/playwright": "^1.15.3",
     "@n8n/api-types": "workspace:*",
     "@n8n/constants": "workspace:*",
     "@n8n/permissions": "workspace:*",
     "@n8n/db": "workspace:*",
-    "@playwright/test": "catalog:e2e",
-    "@types/lodash": "catalog:",
-    "eslint-plugin-playwright": "catalog:e2e",
-    "flatted": "catalog:",
+    "@playwright/test": "1.57.0",
+    "@types/lodash": "4.17.17",
+    "eslint-plugin-playwright": "2.2.2",
+    "flatted": "3.2.7",
     "generate-schema": "2.6.0",
     "mockserver-client": "^5.15.0",
     "n8n": "workspace:*",
     "n8n-containers": "workspace:*",
     "n8n-core": "workspace:*",
     "n8n-workflow": "workspace:*",
-    "nanoid": "catalog:",
+    "nanoid": "3.3.8",
     "nyc": "^17.1.0",
     "otplib": "^12.0.1",
-    "tsx": "catalog:",
-    "zod": "catalog:"
+    "tsx": "^4.19.3",
+    "zod": "3.25.67"
   }
 }

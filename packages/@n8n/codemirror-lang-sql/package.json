@@ -38,15 +38,15 @@
   "sideEffects": false,
   "license": "MIT",
   "dependencies": {
-    "@codemirror/autocomplete": "catalog:",
-    "@codemirror/language": "catalog:",
-    "@codemirror/state": "catalog:",
-    "@lezer/highlight": "catalog:",
-    "@lezer/lr": "catalog:",
+    "@codemirror/autocomplete": "6.20.0",
+    "@codemirror/language": "6.12.1",
+    "@codemirror/state": "6.5.3",
+    "@lezer/highlight": "1.2.3",
+    "@lezer/lr": "1.4.5",
     "@n8n/codemirror-lang": "workspace:*"
   },
   "devDependencies": {
-    "@lezer/generator": "catalog:",
+    "@lezer/generator": "1.8.0",
     "@n8n/typescript-config": "workspace:*"
   },
   "repository": {

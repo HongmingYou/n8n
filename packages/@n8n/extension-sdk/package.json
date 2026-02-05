@@ -40,24 +40,24 @@
     "preview": "vite preview"
   },
   "peerDependencies": {
-    "vue": "catalog:frontend",
-    "vue-router": "catalog:frontend"
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@n8n/typescript-config": "workspace:*",
-    "@vitejs/plugin-vue": "catalog:frontend",
-    "@vue/tsconfig": "catalog:frontend",
-    "tsdown": "catalog:",
-    "rimraf": "catalog:",
-    "vite": "catalog:",
-    "vue": "catalog:frontend",
-    "vue-router": "catalog:frontend",
-    "vue-tsc": "catalog:frontend",
-    "zod-to-json-schema": "catalog:",
-    "tsx": "catalog:"
+    "@vitejs/plugin-vue": "^5.2.4",
+    "@vue/tsconfig": "^0.7.0",
+    "tsdown": "^0.16.5",
+    "rimraf": "6.0.1",
+    "vite": "npm:rolldown-vite@latest",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "vue-tsc": "^2.2.8",
+    "zod-to-json-schema": "3.23.3",
+    "tsx": "^4.19.3"
   },
   "license": "https://docs.n8n.io/sustainable-use-license/",
   "dependencies": {
-    "zod": "catalog:"
+    "zod": "3.25.67"
   }
 }

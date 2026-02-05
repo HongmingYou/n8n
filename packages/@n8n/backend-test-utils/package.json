@@ -27,11 +27,11 @@
     "@n8n/db": "workspace:*",
     "@n8n/di": "workspace:*",
     "@n8n/permissions": "workspace:*",
-    "@n8n/typeorm": "catalog:",
+    "@n8n/typeorm": "0.3.20-15",
     "jest-mock-extended": "^3.0.4",
     "n8n-workflow": "workspace:*",
-    "reflect-metadata": "catalog:",
-    "uuid": "catalog:"
+    "reflect-metadata": "0.2.2",
+    "uuid": "10.0.0"
   },
   "devDependencies": {
     "@n8n/typescript-config": "workspace:*"
