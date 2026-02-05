@@ -1,0 +1,185 @@
+#!/usr/bin/env node
+/**
+ * Script to replace all catalog: references with actual version numbers
+ * This is needed for pnpm 8.x compatibility (catalog feature requires pnpm 9+)
+ */
+
+import { readFileSync, writeFileSync } from 'fs';
+import { glob } from 'fast-glob';
+
+// Manually define catalog versions from pnpm-workspace.yaml
+// (avoiding yaml parser dependency)
+const catalogVersions = {
+  '': {
+    '@codemirror/autocomplete': '6.20.0',
+    '@codemirror/commands': '6.10.1',
+    '@codemirror/lang-css': '6.3.1',
+    '@codemirror/lang-javascript': '6.2.4',
+    '@codemirror/lang-json': '6.0.2',
+    '@codemirror/lang-python': '6.2.1',
+    '@codemirror/language': '6.12.1',
+    '@codemirror/lint': '6.9.2',
+    '@codemirror/search': '6.5.11',
+    '@codemirror/state': '6.5.3',
+    '@codemirror/view': '6.39.8',
+    '@lezer/common': '1.5.0',
+    '@lezer/css': '1.3.0',
+    '@lezer/highlight': '1.2.3',
+    '@lezer/html': '1.3.13',
+    '@lezer/javascript': '1.5.4',
+    '@lezer/generator': '1.8.0',
+    '@lezer/lr': '1.4.5',
+    '@azure/identity': '4.13.0',
+    '@langchain/anthropic': '1.1.3',
+    '@langchain/community': '1.0.5',
+    '@langchain/core': '1.1.8',
+    '@langchain/openai': '1.1.3',
+    '@n8n/typeorm': '0.3.20-15',
+    '@n8n_io/ai-assistant-sdk': '1.20.0',
+    '@types/basic-auth': '^1.1.3',
+    '@types/express': '^5.0.1',
+    '@types/jsonwebtoken': '9.0.10',
+    '@types/lodash': '4.17.17',
+    '@types/mime-types': '3.0.1',
+    '@types/uuid': '^10.0.0',
+    '@types/xml2js': '^0.4.14',
+    '@vitest/coverage-v8': '3.2.4',
+    'axios': '1.12.0',
+    'basic-auth': '2.0.1',
+    'callsites': '3.1.0',
+    'chokidar': '4.0.3',
+    'eslint': '9.29.0',
+    'fast-glob': '3.2.12',
+    'fastest-levenshtein': '1.0.16',
+    'flatted': '3.2.7',
+    'form-data': '4.0.4',
+    'http-proxy-agent': '7.0.2',
+    'https-proxy-agent': '7.0.6',
+    'iconv-lite': '0.6.3',
+    'js-base64': '3.7.2',
+    'jsonrepair': '3.13.1',
+    'jsonwebtoken': '9.0.3',
+    'kafkajs': '2.2.4',
+    'langchain': '1.2.3',
+    'lodash': '4.17.23',
+    'luxon': '3.7.2',
+    'mime-types': '3.0.2',
+    'mysql2': '3.15.0',
+    'nanoid': '3.3.8',
+    'nodemailer': '7.0.11',
+    'pg': '8.17.0',
+    'picocolors': '1.0.1',
+    'reflect-metadata': '0.2.2',
+    'rimraf': '6.0.1',
+    'run-script-os': '1.1.6',
+    'simple-git': '3.28.0',
+    'tsdown': '^0.16.5',
+    'tsx': '^4.19.3',
+    'typescript': '5.9.2',
+    'uuid': '10.0.0',
+    'vite': 'npm:rolldown-vite@latest',
+    'vm2': '^3.10.2',
+    'vite-plugin-dts': '^4.5.4',
+    'vitest': '^3.1.3',
+    'vitest-mock-extended': '^3.1.0',
+    'xml2js': '0.6.2',
+    'xss': '1.0.15',
+    'zod': '3.25.67',
+    'zod-to-json-schema': '3.23.3'
+  },
+  'frontend': {
+    '@sentry/vue': '^10.36.0',
+    '@testing-library/jest-dom': '^6.6.3',
+    '@testing-library/user-event': '^14.6.1',
+    '@testing-library/vue': '^8.1.0',
+    '@vitejs/plugin-vue': '^5.2.4',
+    '@vue/test-utils': '^2.4.6',
+    '@vue/tsconfig': '^0.7.0',
+    '@vueuse/core': '^10.11.0',
+    'element-plus': '2.4.3',
+    'highlight.js': '11.8.0',
+    'pinia': '^2.2.4',
+    'unplugin-icons': '^0.19.0',
+    'vue': '^3.5.13',
+    'vue-i18n': '^11.1.2',
+    'vue-markdown-render': '^2.2.1',
+    'vue-router': '^4.5.0',
+    'vue-tsc': '^2.2.8'
+  },
+  'e2e': {
+    '@playwright/test': '1.57.0',
+    '@currents/playwright': '^1.15.3',
+    'eslint-plugin-playwright': '2.2.2',
+    'playwright': '1.57.0',
+    'playwright-core': '1.57.0'
+  },
+  'storybook': {
+    '@chromatic-com/storybook': '^4.1.3',
+    '@storybook/addon-a11y': '^10.1.11',
+    '@storybook/addon-docs': '^10.1.11',
+    '@storybook/addon-themes': '^10.1.11',
+    '@storybook/addon-vitest': '^10.1.11',
+    '@storybook/vue3-vite': '^10.1.11',
+    'eslint-plugin-storybook': '^10.1.11',
+    'storybook': '^10.1.11'
+  },
+  'sentry': {
+    '@sentry/node': '^10.36.0',
+    '@sentry/node-native': '^10.36.0',
+    '@sentry/profiling-node': '^10.36.0'
+  }
+};
+
+console.log('📖 Loaded catalog versions');
+console.log(`   - Main catalog: ${Object.keys(catalogVersions['']).length} packages`);
+console.log(`   - Frontend catalog: ${Object.keys(catalogVersions.frontend).length} packages`);
+console.log(`   - E2E catalog: ${Object.keys(catalogVersions.e2e).length} packages`);
+console.log(`   - Storybook catalog: ${Object.keys(catalogVersions.storybook).length} packages`);
+console.log(`   - Sentry catalog: ${Object.keys(catalogVersions.sentry).length} packages`);
+
+// Find all package.json files
+const packageFiles = await glob('./packages/**/package.json', { 
+  ignore: ['**/node_modules/**']
+});
+
+console.log(`\n🔍 Found ${packageFiles.length} package.json files\n`);
+
+let totalReplacements = 0;
+let filesModified = 0;
+
+for (const file of packageFiles) {
+  const content = readFileSync(file, 'utf8');
+  let modified = content;
+  let fileReplacements = 0;
+  
+  // Replace catalog: references
+  // Pattern matches: "catalog:", "catalog:frontend", "catalog:e2e", etc.
+  modified = modified.replace(/"([^"]+)":\s*"catalog:([^"]*)"/g, (match, packageName, catalogName) => {
+    const catalog = catalogName || '';
+    const version = catalogVersions[catalog]?.[packageName];
+    
+    if (version) {
+      fileReplacements++;
+      totalReplacements++;
+      return `"${packageName}": "${version}"`;
+    } else {
+      console.warn(`   ⚠️  Could not find version for "${packageName}" in catalog "${catalog || 'main'}" (${file})`);
+      return match;
+    }
+  });
+  
+  if (modified !== content) {
+    writeFileSync(file, modified, 'utf8');
+    filesModified++;
+    console.log(`   ✅ ${file} (${fileReplacements} replacements)`);
+  }
+}
+
+console.log(`\n✨ Done!`);
+console.log(`   - Files modified: ${filesModified}`);
+console.log(`   - Total replacements: ${totalReplacements}`);
+
+if (totalReplacements > 0) {
+  console.log(`\n🎉 All catalog references have been replaced with actual version numbers.`);
+  console.log(`   You can now build with pnpm 8.x`);
+}

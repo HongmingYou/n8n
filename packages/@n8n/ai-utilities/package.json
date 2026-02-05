@@ -26,18 +26,18 @@
 	"devDependencies": {
 		"@types/json-schema": "^7.0.15",
 		"jest-mock-extended": "^3.0.4",
-		"@types/mime-types": "catalog:",
-		"tsx": "catalog:"
+		"@types/mime-types": "3.0.1",
+		"tsx": "^4.19.3"
 	},
 	"dependencies": {
-		"zod": "catalog:",
-		"zod-to-json-schema": "catalog:",
-		"@langchain/core": "catalog:",
+		"zod": "3.25.67",
+		"zod-to-json-schema": "3.23.3",
+		"@langchain/core": "1.1.8",
 		"@langchain/classic": "1.0.5",
-		"@langchain/community": "catalog:",
+		"@langchain/community": "1.0.5",
 		"@langchain/textsplitters": "1.0.1",
-		"@langchain/openai": "catalog:",
-		"langchain": "catalog:",
+		"@langchain/openai": "1.1.3",
+		"langchain": "1.2.3",
 		"@n8n/config": "workspace:*",
 		"@n8n/typescript-config": "workspace:*",
 		"n8n-workflow": "workspace:*",
